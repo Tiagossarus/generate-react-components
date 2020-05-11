@@ -1,28 +1,24 @@
-import React from 'react';
-import cssModule from 'react-css-modules';
-import styles from './__ComponentName__.css';
+import React from "react";
+import PropTypes from "prop-types";
+// import { useTranslation } from "react-i18next";
 
-/* IF !class */
-const __ComponentName__ = () => (
-  <div>
-    __ComponentName__
-  </div>
-);
+// import { useStyles } from "./__ComponentName__.styles";
+
+export const __ComponentName__ = props => {
+    // const { t } = useTranslation();
+    // const classes = useStyles();
+
+    return (
+        <>
+            <h1>Component</h1>
+        </>
+    );
+};
+
+__ComponentName__.defaultProps = {
+    foo: "bar",
+};
 
 __ComponentName__.propTypes = {
-
+    foo: PropTypes.string,
 };
-/* ENDIF *//* IF class*/
-class __ComponentName__ extends React.Component {
-  static propTypes = {
-
-  }
-  render = () => (
-    <div>
-      __ComponentName__
-    </div>
-  )
-}
-/* ENDIF */
-
-export default cssModule(__ComponentName__, styles);

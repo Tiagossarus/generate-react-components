@@ -1,38 +1,46 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect, useReducer, createContext, useContext, useCallback } from 'react';
+// import PropTypes from "prop-types";
 
-/* IF !class */
-const __ComponentName__ = () => (
-  <div>
-    __ComponentName__
-  </div>
-);
+import {
+    useActions,
+    reducer,
+} from './';
 
-__ComponentName__.propTypes = {
+const __ComponentName__Context = createContext(null);
 
+export const __ComponentName__Provider = props => {
+
+    const initialState = {
+        loading: true,
+    };
+
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const actions = useActions(state, dispatch);
+
+    // useEffect(() => {
+    //     // Log new state when state changes
+    //     console.log('[__ComponentName__] newState:', state)
+    // }, [state]);
+
+    const value = {
+        dispatch,
+        actions,
+        state,
+    };
+
+    return (
+        <__ComponentName__.Provider value={value}>{props.children}</__ComponentName__.Provider>
+    );
 };
-/* ENDIF *//* IF class*/
-class __ComponentName__ extends React.Component {
-  static propTypes = {
 
-  }
-  render = () => (
-    <div>
-      __ComponentName__
-    </div>
-  )
-}
-/* ENDIF */
+const use__ComponentName__ = () => useContext(__ComponentName__Context);
 
-const mapStateToProps = state => ({
+export { __ComponentName__Provider, use__ComponentName__ };
 
-});
+// __ComponentName__.defaultProps = {
+//     foo: "bar",
+// };
 
-const mapDispatchToProps = dispatch => ({
-
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(__ComponentName__);
+// __ComponentName__.propTypes = {
+//     foo: PropTypes.string,
+// };

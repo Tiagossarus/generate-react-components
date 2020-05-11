@@ -1,3 +1,4 @@
-import __ComponentName__ from './__ComponentName__';
-
-export default __ComponentName__;
+export { types } from "./types";
+export { reducer } from "./reducer";
+export { useActions } from "./useActions";
+export { AppContextProvider, useAppContext } from "./context";
