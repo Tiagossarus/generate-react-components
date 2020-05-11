@@ -1,6 +1,6 @@
 import { types } from "./";
 
-export default (state = {}, action) => {
+export const reducer = (state = {}, action) => {
     const { type, payload } = action;
 
     console.log(`[${type}]`, { state, type, payload });

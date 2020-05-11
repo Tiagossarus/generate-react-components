@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, createContext, useContext, useCallback } from 'react';
+import React, { useEffect, useReducer, createContext, useContext } from 'react';
 // import PropTypes from "prop-types";
 
 import {
@@ -8,7 +8,7 @@ import {
 
 const __ComponentName__Context = createContext(null);
 
-export const __ComponentName__Provider = props => {
+const __ComponentName__Provider = props => {
 
     const initialState = {
         loading: true,
@@ -17,10 +17,10 @@ export const __ComponentName__Provider = props => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const actions = useActions(state, dispatch);
 
-    // useEffect(() => {
-    //     // Log new state when state changes
-    //     console.log('[__ComponentName__] newState:', state)
-    // }, [state]);
+    useEffect(() => {
+        // Log new state when state changes
+        console.log('[__ComponentName__] newState:', state)
+    }, [state]);
 
     const value = {
         dispatch,
@@ -33,9 +33,9 @@ export const __ComponentName__Provider = props => {
     );
 };
 
-const use__ComponentName__ = () => useContext(__ComponentName__Context);
+const use__ComponentName__Context = () => useContext(__ComponentName__Context);
 
-export { __ComponentName__Provider, use__ComponentName__ };
+export { __ComponentName__Provider, use__ComponentName__Context };
 
 // __ComponentName__.defaultProps = {
 //     foo: "bar",
