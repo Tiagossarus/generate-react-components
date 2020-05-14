@@ -1,14 +1,14 @@
 {
-    "name": "generate-react-component",
-    "displayName": "generate-react-component",
-    "description": "Generate component structure from easily customizable templates",
-    "author": "Joshua Goldman",
+    "name": "generate-react-components",
+    "displayName": "generate-react-components",
+    "description": "Generate component structure from templates",
+    "author": "Tiago Caetano",
     "license": "MIT",
-    "version": "0.2.1",
-    "publisher": "joshjg",
+    "version": "0.0.1",
+    "publisher": "tiagossaurus",
     "repository": {
         "type": "git",
-        "url": "https://github.com/joshjg/vscode-generate-react-component"
+        "url": "https://github.com/Tiagossarus/generate-react-components"
     },
     "engines": {
         "vscode": "^1.5.0"
@@ -23,7 +23,7 @@
     "contributes": {
         "configuration": {
             "type": "object",
-            "title": "generate-react-component configuration",
+            "title": "generate-react-components configuration",
             "properties": {
                 "generate-react-component.conditionals": {
                     "type": "array",
@@ -31,9 +31,7 @@
                         "type": "string"
                     },
                     "uniqueItems": true,
-                    "default": [
-                        "class"
-                    ],
+                    "default": [],
                     "description": "Toggle certain portions of your templates with these named booleans."
                 },
                 "generate-react-component.componentTemplatePath": {
@@ -85,6 +83,7 @@
         "@types/mocha": "^2.2.32"
     },
     "dependencies": {
+        "change-case": "^4.1.1",
         "fs-plus": "^2.9.3",
         "path": "^0.12.7"
     }

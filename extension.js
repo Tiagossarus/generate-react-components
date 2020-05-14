@@ -1,6 +1,8 @@
 const vscode = require("vscode");
 const path = require("path");
 const fs = require("fs-plus");
+const changecase = require("change-case");
+
 
 const replacePlaceholders = (templateString, componentName) =>
     templateString.replace(/__ComponentName__/g, componentName);
@@ -51,7 +53,9 @@ const validateYN = value => {
     return null;
 };
 
-const generate = (componentName, inputPath, mode, enabledOptions) => {
+const generate = (name, inputPath, mode, enabledOptions) => {
+    const componentName = changecase.pascalCase(name);
+
     const basePath = fs.isDirectorySync(inputPath)
         ? inputPath
         : path.join(inputPath, "..");
@@ -93,6 +97,25 @@ const generate = (componentName, inputPath, mode, enabledOptions) => {
             });
         });
     });
+
+    // prompt to add the export declaration to index.js
+    const indexFile = path.resolve(basePath, 'index.js');
+    vscode.window
+        .showInputBox({
+            prompt: `Add component to index.js file exports?`,
+            validateInput: value => validateYN(value),
+        })
+        .then(value => {
+            if (value === undefined) {
+                return undefined;
+            }
+
+            fs.readFile(indexFile, (err, data) => {
+                if (err) throw err;
+                fs.appendFileSync(indexFile, `\r\nexport { ${componentName} } from './${componentName}';`);
+            });
+        })
+
 };
 
 const createDisposable = type =>
@@ -100,8 +123,8 @@ const createDisposable = type =>
         // Display input box prompting for component name
         vscode.window
             .showInputBox({
-                prompt: `Enter ${type} name`,
-                validateInput: name => validateName(name, target.path),
+                prompt: `Enter ${type} name (eg. MyComponent). Name will be converted to PascalCase.`,
+                validateInput: name => validateName(changecase.pascalCase(name), target.path),
             })
             .then(name => {
                 if (name === undefined) return undefined;
