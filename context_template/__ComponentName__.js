@@ -1,15 +1,11 @@
-import React, { useEffect, useReducer, createContext, useContext } from 'react';
+import React, { useEffect, useReducer, createContext, useContext } from "react";
 // import PropTypes from "prop-types";
 
-import {
-    useActions,
-    reducer,
-} from './';
+import { useActions, reducer } from "./";
 
 const __ComponentName__Context = createContext(null);
 
-const __ComponentName__Provider = props => {
-
+const __ComponentName__ContextProvider = props => {
     const initialState = {
         loading: true,
     };
@@ -19,7 +15,7 @@ const __ComponentName__Provider = props => {
 
     useEffect(() => {
         // Log new state when state changes
-        console.log('[__ComponentName__] newState:', state)
+        console.log("[__ComponentName__] newState:", state);
     }, [state]);
 
     const value = {
@@ -29,18 +25,20 @@ const __ComponentName__Provider = props => {
     };
 
     return (
-        <__ComponentName__.Provider value={value}>{props.children}</__ComponentName__.Provider>
+        <__ComponentName__Context.Provider value={value}>
+            {props.children}
+        </__ComponentName__Context.Provider>
     );
 };
 
 const use__ComponentName__Context = () => useContext(__ComponentName__Context);
 
-export { __ComponentName__Provider, use__ComponentName__Context };
+export { __ComponentName__ContextProvider, use__ComponentName__Context };
 
-// __ComponentName__.defaultProps = {
+// __ComponentName__ContextProvider.defaultProps = {
 //     foo: "bar",
 // };
 
-// __ComponentName__.propTypes = {
+// __ComponentName__ContextProvider.propTypes = {
 //     foo: PropTypes.string,
 // };
